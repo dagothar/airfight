@@ -6,12 +6,16 @@ Airfight by Dagothar
   
   Airfight is a simple two player aircraft dog-fighting game.
   
+  ![Airfight menu](airfight2.png "Airfight - menu")
+  
   Features:
   * aircraft combat
-  * several aircraft available (Spitfire, Messerschmitt, Flying Fortress, F17)
-  * several weapons (guns, bombs, cannons, ...)
+  * several aircraft available (Spitfire, Messerschmitt, B27, F17)
+  * several weapons (guns, bombs, cannons, missiles, ...)
   * hit zones!
   * fun
+  
+  ![Airfight gameplay](airfight.png "Airfight - gameplay")
 
 2. Sterowanie.
 --------------
