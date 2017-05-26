@@ -27,7 +27,7 @@ BITMAP *shot, *cannon, *rocket, *bomb, *smoke;
 
 std::string c1, c2;
 
-enum buttons { NOWA, OPCJE, ZAKONCZ, WROC, W_1, LISTA1, W_2, LISTA2, T_PVPTIME, O_PVPTIME, T_FPS, O_FPS, T_DMGMUL, O_DMGMUL, C_FPS, C_WRAP, C_TEST2, B_OOK, B_DEFAULT, BTERM, BEND };
+enum buttons { NOWA, OPCJE, POMOC, TPOMOC, ZAKONCZ, WROC, W_1, LISTA1, W_2, LISTA2, T_PVPTIME, O_PVPTIME, T_FPS, O_FPS, T_DMGMUL, O_DMGMUL, C_FPS, C_WRAP, C_TEST2, B_OOK, B_DEFAULT, BTERM, BEND };
 DIALOG m[BEND];
 
 /* stałe */
@@ -385,7 +385,7 @@ void Aircraft::ex_display()
 
 void Aircraft::go()
 {
-	if(alive && hps[HULL] <= 0.0) die();
+	if(alive && ((hps[HULL] <= 0.0) || (hps[TANK] <= 0.0))) die();
 	if(!alive) return;
 	if(booster <= 0.0) booster = 0.0, boost = 0;
 	if(boost) booster -= dt;
@@ -497,7 +497,7 @@ void Aircraft::damage(double dmg, int area)
 			break;
 		case TANK:
 			hps[TANK] -= dmg;
-			if(hps[TANK] <= 0.0) hps[TANK] = 0.0, die();
+			if(hps[TANK] <= 0.0) hps[TANK] = 0.0;
 			leak = max_leak * (1.0 - hps[TANK] / hps0[TANK]);
 			if(smokep < 0.1 * leak) smokep = 0.1 * leak / max_leak;
 			break;
@@ -542,6 +542,12 @@ void Aircraft::die()
 	if(player == PLAYER2) ++p1score;
 
 	rotate_sprite(sky, explosion, px-explosion->w/2, py-explosion->h/2, fixmul(ftofix(fi), radtofix_r));
+	double f;
+	for(f = -PI; f < PI; f += PI / (rand() % 50 + 50)) {
+		Shot *new_shot = new Shot(GUN, x, y, v+50.0, f, 1.0, 0.1, -1);
+		new_shot->next = s;
+		s = new_shot;
+	}
 }
 
 Shot::Shot(int _t, double _x, double _y, double _v, double _fi, double _power, double _life, char _owner)
@@ -651,8 +657,8 @@ int Shot::check_hit()
 			else if(c == color[CSRIGHT]) r = SRIGHT;
 			else if(c == color[CSLEFT]) r = SLEFT;
 			else if(c == color[CHULL]) r = HULL;
-			r ^= o << 3;
-			r ^= 0xf0;
+			r ^= o << 3; //3 najmlodsze bity odpowiadaja strefie, 4 - numerowi samolotu
+			r |= 0xf0; //tylko po to, żeby w przypadku trafienia nie było 0
 			return r;
 		}
 	}
@@ -941,13 +947,31 @@ int b_mbutton(int msg, DIALOG *d, int c)
 			f_menu = 0;
 			return D_EXIT;
 		}
+		if(d == &m[POMOC]) {
+			m[NOWA].flags |= D_DISABLED;
+			m[WROC].flags |= D_DISABLED;
+			m[OPCJE].flags |= D_DISABLED;
+			m[POMOC].flags |= D_DISABLED;
+			m[ZAKONCZ].flags |= D_DISABLED;
+			m[LISTA1].flags |= D_DISABLED;
+			m[LISTA2].flags |= D_DISABLED;
+
+			m[B_OOK].flags ^= D_HIDDEN;
+			m[TPOMOC].flags ^= D_HIDDEN;
+
+			scare_mouse();
+			rectfill(screen, 225, 75, xres-105, 430, color[HUD]);
+			unscare_mouse();
+			return D_REDRAW;
+		}
 		if(d == &m[OPCJE]) {
-			m[NOWA].flags ^= D_DISABLED;
-			m[WROC].flags ^= D_DISABLED;
-			m[OPCJE].flags ^= D_DISABLED;
-			m[ZAKONCZ].flags ^= D_DISABLED;
-			m[LISTA1].flags ^= D_DISABLED;
-			m[LISTA2].flags ^= D_DISABLED;
+			m[NOWA].flags |= D_DISABLED;
+			m[WROC].flags |= D_DISABLED;
+			m[OPCJE].flags |= D_DISABLED;
+			m[POMOC].flags |= D_DISABLED;
+			m[ZAKONCZ].flags |= D_DISABLED;
+			m[LISTA1].flags |= D_DISABLED;
+			m[LISTA2].flags |= D_DISABLED;
 
 			m[O_PVPTIME].flags ^= D_HIDDEN;
 			m[T_PVPTIME].flags ^= D_HIDDEN;
@@ -970,21 +994,23 @@ int b_mbutton(int msg, DIALOG *d, int c)
 			m[NOWA].flags ^= D_DISABLED;
 			m[WROC].flags ^= D_DISABLED;
 			m[OPCJE].flags ^= D_DISABLED;
+			m[POMOC].flags ^= D_DISABLED;
 			m[ZAKONCZ].flags ^= D_DISABLED;
 			m[LISTA1].flags ^= D_DISABLED;
 			m[LISTA2].flags ^= D_DISABLED;
 
-			m[O_PVPTIME].flags ^= D_HIDDEN;
-			m[T_PVPTIME].flags ^= D_HIDDEN;
-			m[O_DMGMUL].flags ^= D_HIDDEN;
-			m[T_DMGMUL].flags ^= D_HIDDEN;
-			m[O_FPS].flags ^= D_HIDDEN;
-			m[T_FPS].flags ^= D_HIDDEN;
-			m[C_FPS].flags ^= D_HIDDEN;
-			m[C_WRAP].flags ^= D_HIDDEN;
-			m[C_TEST2].flags ^= D_HIDDEN;
-			m[B_OOK].flags ^= D_HIDDEN;
-			m[B_DEFAULT].flags ^= D_HIDDEN;
+			m[O_PVPTIME].flags |= D_HIDDEN;
+			m[T_PVPTIME].flags |= D_HIDDEN;
+			m[O_DMGMUL].flags |= D_HIDDEN;
+			m[T_DMGMUL].flags |= D_HIDDEN;
+			m[O_FPS].flags |= D_HIDDEN;
+			m[T_FPS].flags |= D_HIDDEN;
+			m[C_FPS].flags |= D_HIDDEN;
+			m[C_WRAP].flags |= D_HIDDEN;
+			m[C_TEST2].flags |= D_HIDDEN;
+			m[B_OOK].flags |= D_HIDDEN;
+			m[B_DEFAULT].flags |= D_HIDDEN;
+			m[TPOMOC].flags |= D_HIDDEN;
 
 			scare_mouse();
 			blit(splash, screen, 0, 0, xres/2-splash->w/2, yres/2-splash->h/2, splash->w, splash->h);
@@ -1068,7 +1094,7 @@ void make_menu()
 
 	i = NOWA;
 	m[i].proc = b_mbutton;
-	m[i].x = 100; m[i].y = 400;
+	m[i].x = 100; m[i].y = 350;
 	m[i].w = 100; m[i].h = 25;
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].key = 'n';
@@ -1077,12 +1103,63 @@ void make_menu()
 
 	i = OPCJE;
 	m[i].proc = b_mbutton;
-	m[i].x = 100; m[i].y = 450;
+	m[i].x = 100; m[i].y = 400;
 	m[i].w = 100; m[i].h = 25;
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].key = 'o';
 	m[i].flags = D_O_K;
 	m[i].dp = (void *)"&Opcje";
+
+	i = POMOC;
+	m[i].proc = b_mbutton;
+	m[i].x = 100; m[i].y = 450;
+	m[i].w = 100; m[i].h = 25;
+	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
+	m[i].key = 'p';
+	m[i].flags = D_O_K;
+	m[i].dp = (void *)"&Pomoc";
+
+	i = TPOMOC;
+	m[i].proc = d_textbox_proc;
+	m[i].x = 250; m[i].y = 100;
+	m[i].w = 420; m[i].h = 280;
+	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
+	m[i].flags = D_O_K | D_HIDDEN;
+	m[i].dp = (void *)"\t\tAirfight by Dagothar\n\n\n"
+	"1. Sterowanie.\n\n"
+	"Klawisze gracza #1:\n"
+	"Góra - zwiększ ciąg\n"
+	"Dół - włącz/wyłącz dopalacz(o ile istnieje)\n"
+	"Lewo, prawo - skręt\n"
+	"Prawy shift - zmień broń\n"
+	"Prawy control - strzelaj\n\n"
+	"Klawisze gracza #2:\n"
+	"X - zwiększ ciąg\n"
+	"A - włącz/wyłącz dopalacz(o ile istnieje)\n"
+	"Z, C - skręt\n"
+	"Lewy shift - zmień broń\n"
+	"Lewy control - strzelaj\n\n"
+	"P - umieść nowe samoloty na mapie\n\n\n"
+	"2. Opcje.\n\n"
+	"\tDomyślnie zawijanie mapy jest wyłączone - kiedy samolot wpadnie na krawędź "
+	"mapy, rozbija się. Kiedy zawijanie jest włączone, samolot przelatuje na przeciwległą "
+	"krawędź.\nOpcja 'Test' przekazuje kontrolę nad samolotem #2 dla procedury, która steruje "
+	"nim losowo, więc wskazane jest włączenie jednocześnie z nią opcji zawijania mapy.\n"
+	"\tPoszczególne suwaki w opcjach umożliwiają ustawienie czasu na rozgrzewkę(0 - 10 sek.) "
+	"oraz współczynnika obrażeń(0.5 - 2 razy większe niż normalnie).\n"
+	"Suwak odświeżania grafiki nic dobrego nie robi.\n\n\n"
+	"3.Gra.\n\n"
+	"\tW grze chodzi o strącenie maszyny przeciwnika przy użyciu wszelkich możliwych środków. "
+	"Strzelanie jest możliwe jedynie po przekroczeniu pewnej prędkości, jednocześnie nie można "
+	"juz potem zwolnić aby się nie rozbić. Samoloty mają strefy trafień - zniszczenie lub "
+	"uszkodzenie sterów wpływa na sterowność, silnika na dynamikę, ubytek paliwa wzrasta "
+	"jeżeli zbiornik jest dziurawy. Kiedy zostanie całkowicie zniszczony, samolot wybucha. "
+	"Zabicie załogi powoduje całkowitą utratę kontroli nad samolotem. Uszkodzona broń ma "
+	"szansę się zacinać.\nUszkodzenia przedstawione są schematycznie na ikonach "
+	"samolotów w dolnej części ekranu. Powyżej wypisane są hp poszczególnych części; "
+	"kolejno: kadłuba, silnika, załogi, zbiornika, systemu broni, usterzenia z prawej i lewej "
+	"strony. Czerwony pasek odpowiada poziomowi paliwa, żółty - amunicji aktualnie wybranej broni,"
+	" zielony - stanowi kadłuba.";
 
 	i = ZAKONCZ;
 	m[i].proc = b_mbutton;
@@ -1095,7 +1172,7 @@ void make_menu()
 
 	i = WROC;
 	m[i].proc = b_mbutton;
-	m[i].x = 100; m[i].y = 350;
+	m[i].x = 100; m[i].y = 300;
 	m[i].w = 100; m[i].h = 25;
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].key = 'p';
@@ -1246,7 +1323,7 @@ void menu()
 
 	clear(screen);
 	blit(splash, screen, 0, 0, xres/2-splash->w/2, yres/2-splash->h/2, splash->w, splash->h);
-	do_dialog(m, -1);
+	while(do_dialog(m, -1) == -1);
 }
 
 int main(int argc, char *argv[])

@@ -1,0 +1,300 @@
+# depslib dependency file v1.0
+1487524398 source:c:\users\dagothar\documents\github\airfight\src\airfight.cpp
+	<allegro.h>
+	<ctime>
+	<cstdlib>
+	<iostream>
+	<fstream>
+	<string>
+	<sstream>
+	<cmath>
+
+1114363574 c:\users\dagothar\documents\github\airfight\include\allegro.h
+	"allegro/base.h"
+	"allegro/system.h"
+	"allegro/debug.h"
+	"allegro/unicode.h"
+	"allegro/mouse.h"
+	"allegro/timer.h"
+	"allegro/keyboard.h"
+	"allegro/joystick.h"
+	"allegro/palette.h"
+	"allegro/gfx.h"
+	"allegro/color.h"
+	"allegro/draw.h"
+	"allegro/rle.h"
+	"allegro/compiled.h"
+	"allegro/text.h"
+	"allegro/font.h"
+	"allegro/fli.h"
+	"allegro/config.h"
+	"allegro/gui.h"
+	"allegro/sound.h"
+	"allegro/file.h"
+	"allegro/lzss.h"
+	"allegro/datafile.h"
+	"allegro/fixed.h"
+	"allegro/fmaths.h"
+	"allegro/matrix.h"
+	"allegro/quat.h"
+	"allegro/3d.h"
+	"allegro/3dmaths.h"
+	"allegro/alcompat.h"
+	"allegro/fix.h"
+
+1256852060 c:\users\dagothar\documents\github\airfight\include\allegro\base.h
+	<errno.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"internal/alconfig.h"
+
+1182701602 c:\users\dagothar\documents\github\airfight\include\allegro\internal\alconfig.h
+	"allegro/platform/alplatf.h"
+	"allegro/platform/aldjgpp.h"
+	"allegro/platform/alwatcom.h"
+	"allegro/platform/almngw32.h"
+	"allegro/platform/aldmc.h"
+	"allegro/platform/albcc32.h"
+	"allegro/platform/almsvc.h"
+	"allegro/platform/albecfg.h"
+	"allegro/platform/almaccfg.h"
+	"allegro/platform/alosxcfg.h"
+	"allegro/platform/alqnxcfg.h"
+	"allegro/platform/alucfg.h"
+	"allegro/platform/astdint.h"
+
+1267387128 c:\users\dagothar\documents\github\airfight\include\allegro\platform\alplatf.h
+
+1107299532 c:\users\dagothar\documents\github\airfight\include\allegro\platform\aldjgpp.h
+	<pc.h>
+	<dir.h>
+	<dpmi.h>
+	<go32.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/farptr.h>
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1182795286 c:\users\dagothar\documents\github\airfight\include\allegro\platform\aldmc.h
+	<io.h>
+	<fcntl.h>
+	<stdint.h>
+
+1151098410 c:\users\dagothar\documents\github\airfight\include\allegro\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1151098410 c:\users\dagothar\documents\github\airfight\include\allegro\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\albecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1107299532 c:\users\dagothar\documents\github\airfight\include\allegro\platform\almaccfg.h
+	<MacTypes.h>
+	<QuickDraw.h>
+	<FCntl.h>
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\alosxcfg.h
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\alqnxcfg.h
+	<stdio.h>
+	<stdlib.h>
+	<fcntl.h>
+	<unistd.h>
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunixac.h"
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1189544958 c:\users\dagothar\documents\github\airfight\include\allegro\system.h
+	"base.h"
+	"unicode.h"
+	"config.h"
+	"inline/system.inl"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\unicode.h
+	"base.h"
+
+1136077788 c:\users\dagothar\documents\github\airfight\include\allegro\config.h
+	"base.h"
+
+1090956802 c:\users\dagothar\documents\github\airfight\include\allegro\inline\system.inl
+	"allegro/debug.h"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\debug.h
+	"base.h"
+
+1181991148 c:\users\dagothar\documents\github\airfight\include\allegro\mouse.h
+	"base.h"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\timer.h
+	"base.h"
+
+1102143390 c:\users\dagothar\documents\github\airfight\include\allegro\keyboard.h
+	"base.h"
+
+1073677796 c:\users\dagothar\documents\github\airfight\include\allegro\joystick.h
+	"base.h"
+
+1005098808 c:\users\dagothar\documents\github\airfight\include\allegro\palette.h
+
+1138612656 c:\users\dagothar\documents\github\airfight\include\allegro\gfx.h
+	"3d.h"
+	"base.h"
+	"fixed.h"
+	"inline/gfx.inl"
+
+1097988334 c:\users\dagothar\documents\github\airfight\include\allegro\3d.h
+	"base.h"
+	"fixed.h"
+
+1107299532 c:\users\dagothar\documents\github\airfight\include\allegro\fixed.h
+	"base.h"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\inline\gfx.inl
+	"allegro/debug.h"
+	"asm.inl"
+
+1144548448 c:\users\dagothar\documents\github\airfight\include\allegro\inline\asm.inl
+	"allegro/platform/al386gcc.h"
+	"allegro/platform/al386vc.h"
+	"allegro/platform/al386wat.h"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\platform\al386gcc.h
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\platform\al386vc.h
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\platform\al386wat.h
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\color.h
+	"base.h"
+	"palette.h"
+	"inline/color.inl"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\inline\color.inl
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\draw.h
+	"base.h"
+	"fixed.h"
+	"gfx.h"
+	"inline/draw.inl"
+
+1125265870 c:\users\dagothar\documents\github\airfight\include\allegro\inline\draw.inl
+	"allegro/debug.h"
+	"allegro/3d.h"
+	"gfx.inl"
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\rle.h
+	"base.h"
+	"gfx.h"
+	"inline/rle.inl"
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\inline\rle.inl
+	"allegro/debug.h"
+
+1144548448 c:\users\dagothar\documents\github\airfight\include\allegro\compiled.h
+	"base.h"
+
+1105910090 c:\users\dagothar\documents\github\airfight\include\allegro\text.h
+	"base.h"
+
+1165893276 c:\users\dagothar\documents\github\airfight\include\allegro\font.h
+	"base.h"
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\fli.h
+	"base.h"
+	"palette.h"
+
+1104434866 c:\users\dagothar\documents\github\airfight\include\allegro\gui.h
+	"base.h"
+
+1142730334 c:\users\dagothar\documents\github\airfight\include\allegro\sound.h
+	"base.h"
+	"digi.h"
+	"stream.h"
+	"midi.h"
+
+1142730334 c:\users\dagothar\documents\github\airfight\include\allegro\digi.h
+	"base.h"
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\stream.h
+	"base.h"
+
+1142730334 c:\users\dagothar\documents\github\airfight\include\allegro\midi.h
+	"base.h"
+
+1196557196 c:\users\dagothar\documents\github\airfight\include\allegro\file.h
+	"base.h"
+
+1110312016 c:\users\dagothar\documents\github\airfight\include\allegro\lzss.h
+	"base.h"
+
+1136077788 c:\users\dagothar\documents\github\airfight\include\allegro\datafile.h
+	"base.h"
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\fmaths.h
+	"base.h"
+	"fixed.h"
+	"inline/fmaths.inl"
+
+1130564098 c:\users\dagothar\documents\github\airfight\include\allegro\inline\fmaths.inl
+	"asm.inl"
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\matrix.h
+	"base.h"
+	"fixed.h"
+	"fmaths.h"
+	"inline/matrix.inl"
+
+1007249572 c:\users\dagothar\documents\github\airfight\include\allegro\inline\matrix.inl
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\quat.h
+	"base.h"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\3dmaths.h
+	"base.h"
+	"fixed.h"
+	"inline/3dmaths.inl"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\inline\3dmaths.inl
+
+1197517110 c:\users\dagothar\documents\github\airfight\include\allegro\alcompat.h
+
+1036104984 c:\users\dagothar\documents\github\airfight\include\allegro\fix.h
+	"fixed.h"
+	"fmaths.h"
+	"inline/fix.inl"
+
+1110272126 c:\users\dagothar\documents\github\airfight\include\allegro\inline\fix.inl
+
