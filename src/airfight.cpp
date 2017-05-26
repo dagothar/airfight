@@ -65,8 +65,8 @@ int frame = 0;
 int f_timer;
 int fps = 0;
 char show_fps = 0;
-char map_wraps = 0;
-char test2 = 0;
+char map_wraps = 1;
+char test2 = 1;
 volatile char go_pass = 0;
 volatile char display_pass = 0;
 
@@ -285,7 +285,7 @@ void Aircraft::init()
 	idle_flow = 0.25 * eng_power * dt;
 	leak = 0.0;
 	int i;
-	for(i = 0; i < DEND; hps[i] = hps0[i++]);
+	for(i = 0; i < DEND; ++i) hps[i] = hps0[i];
 	c_weapon = 0;
 	boost = 0;
 	jam_chance = 0.0;
@@ -1029,8 +1029,8 @@ int b_mbutton(int msg, DIALOG *d, int c)
 			m[O_DMGMUL].d2 = 5;
 			m[O_FPS].d2 = 90;
 			m[C_FPS].flags &= ~D_SELECTED;
-			m[C_WRAP].flags &= ~D_SELECTED;
-			m[C_TEST2].flags &= ~D_SELECTED;
+			m[C_WRAP].flags |= D_SELECTED;
+			m[C_TEST2].flags |= D_SELECTED;
 			return D_REDRAW;
 		}
 		if(d == &m[C_FPS]) {
@@ -1099,7 +1099,7 @@ void make_menu()
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].key = 'n';
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"&Nowa gra";
+	m[i].dp = (void *)"&New game";
 
 	i = OPCJE;
 	m[i].proc = b_mbutton;
@@ -1108,16 +1108,16 @@ void make_menu()
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].key = 'o';
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"&Opcje";
+	m[i].dp = (void *)"&Options";
 
 	i = POMOC;
 	m[i].proc = b_mbutton;
 	m[i].x = 100; m[i].y = 450;
 	m[i].w = 100; m[i].h = 25;
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
-	m[i].key = 'p';
+	m[i].key = 'h';
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"&Pomoc";
+	m[i].dp = (void *)"&Help";
 
 	i = TPOMOC;
 	m[i].proc = d_textbox_proc;
@@ -1126,7 +1126,7 @@ void make_menu()
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].flags = D_O_K | D_HIDDEN;
 	m[i].dp = (void *)"\t\tAirfight by Dagothar\n\n\n"
-	"1. Sterowanie.\n\n"
+	"1. Controls.\n\n"
 	"Klawisze gracza #1:\n"
 	"Góra - zwiększ ciąg\n"
 	"Dół - włącz/wyłącz dopalacz(o ile istnieje)\n"
@@ -1166,25 +1166,25 @@ void make_menu()
 	m[i].x = 100; m[i].y = 500;
 	m[i].w = 100; m[i].h = 25;
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
-	m[i].key = 'w';
+	m[i].key = 'e';
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"&Wyjdź";
+	m[i].dp = (void *)"&Exit";
 
 	i = WROC;
 	m[i].proc = b_mbutton;
 	m[i].x = 100; m[i].y = 300;
 	m[i].w = 100; m[i].h = 25;
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
-	m[i].key = 'p';
+	m[i].key = 'r';
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"&Powrót";
+	m[i].dp = (void *)"&Return";
 
 	i = W_1;
 	m[i].proc = d_text_proc;
 	m[i].x = 250; m[i].y = 440;
 	m[i].fg = color[WHITE]; m[i].bg = -1;
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"Samolot #1";
+	m[i].dp = (void *)"Plane #1";
 
 	i = LISTA1;
 	m[i].proc = d_list_proc;
@@ -1200,7 +1200,7 @@ void make_menu()
 	m[i].x = 400; m[i].y = 440;
 	m[i].fg = color[WHITE]; m[i].bg = -1;
 	m[i].flags = D_O_K;
-	m[i].dp = (void *)"Samolot #2";
+	m[i].dp = (void *)"Plane #2";
 
 	i = LISTA2;
 	m[i].proc = d_list_proc;
@@ -1216,7 +1216,7 @@ void make_menu()
 	m[i].w = 200; m[i].h = 20;
 	m[i].fg = color[WHITE]; m[i].bg = -1;
 	m[i].flags = D_O_K | D_HIDDEN;
-	m[i].dp = (void *)"Czas na rozgrzewkę (0 - 10 sek.)";
+	m[i].dp = (void *)"Warm-up time (0 - 10 s)";
 
 	i = O_PVPTIME;
 	m[i].proc = d_slider_proc;
@@ -1234,7 +1234,7 @@ void make_menu()
 	m[i].w = 200; m[i].h = 20;
 	m[i].fg = color[WHITE]; m[i].bg = -1;
 	m[i].flags = D_O_K | D_HIDDEN;
-	m[i].dp = (void *)"Współczynnik obrażeń (0.5 - 2.0)";
+	m[i].dp = (void *)"Damage multiplier (0.5 - 2.0)";
 
 	i = O_DMGMUL;
 	m[i].proc = d_slider_proc;
@@ -1252,7 +1252,7 @@ void make_menu()
 	m[i].w = 200; m[i].h = 20;
 	m[i].fg = color[WHITE]; m[i].bg = -1;
 	m[i].flags = D_O_K | D_HIDDEN;
-	m[i].dp = (void *)"Odświeżanie grafiki (10 - 100)";
+	m[i].dp = (void *)"Refresh (10 - 100)";
 
 	i = O_FPS;
 	m[i].proc = d_slider_proc;
@@ -1272,17 +1272,17 @@ void make_menu()
 	m[i].key = 'f';
 	m[i].flags = D_O_K | D_HIDDEN;
 	m[i].d1 = 1;
-	m[i].dp = (void *)"Pokaż &Fps";
+	m[i].dp = (void *)"Show &Fps";
 
 	i = C_WRAP;
 	m[i].proc = b_mbutton;
 	m[i].x = 250; m[i].y = 240;
 	m[i].w = 200; m[i].h = 10;
 	m[i].fg = color[WHITE]; m[i].bg = color[HUD];
-	m[i].key = 'z';
-	m[i].flags = D_O_K | D_HIDDEN;
+	m[i].key = 'w';
+	m[i].flags = D_O_K | D_HIDDEN | D_SELECTED;
 	m[i].d1 = 1;
-	m[i].dp = (void *)"&Zawijanie mapy";
+	m[i].dp = (void *)"Map &wrapping";
 
 	i = C_TEST2;
 	m[i].proc = b_mbutton;
@@ -1290,7 +1290,7 @@ void make_menu()
 	m[i].w = 200; m[i].h = 10;
 	m[i].fg = color[WHITE]; m[i].bg = color[HUD];
 	m[i].key = 't';
-	m[i].flags = D_O_K | D_HIDDEN;
+	m[i].flags = D_O_K | D_HIDDEN | D_SELECTED;
 	m[i].d1 = 1;
 	m[i].dp = (void *)"&Test2";
 
@@ -1310,7 +1310,7 @@ void make_menu()
 	m[i].fg = color[TEXT]; m[i].bg = color[HUD];
 	m[i].key = 'd';
 	m[i].flags = D_O_K | D_HIDDEN;
-	m[i].dp = (void *)"&Domyślne";
+	m[i].dp = (void *)"&Default";
 
 
 	i = BTERM;
