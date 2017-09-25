@@ -1,4 +1,4 @@
-Allegro 4.2.3
+ cv vc Allegro 4.2.3
   for MinGW, gcc 3.3
 
 Packaged by Matthew Leverton <http://allegro.cc>
